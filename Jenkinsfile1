@@ -17,7 +17,7 @@ pipeline {
         }
         stage("Maven build"){
             steps{
-                sh "mvn clean install package"
+                sh "mvn clean package"
             }
         }
         // Stage3 : Publish the source code to Sonarqube

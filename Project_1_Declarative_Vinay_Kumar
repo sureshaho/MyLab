@@ -1,0 +1,82 @@
+Pipeline as a Code (Vinay Kumar Patil) : DevOps: CI/CD with Jenkins Nexus Ansible Docker Terraform (Udemy)
+=====================================================================================================
+Project CI/CD pipeline architecture is there in path "D:\AWS_and_Dev_Ops\Dev_Ops\CI_CD_Projects\Project-1-Pipeline as a code"
+
+code: 
+====
+https://github.com/sureshaho/MyLab.git (Pipeline script: Jenkinsfile_develop = dev and Jenkinsfile_release = UAT)
+https://github.com/vinaysdevopslab/MyLab.git
+
+Requried all declarative script and Terraform code (IaC) to create the infrastructure is in my computer path "D:\AWS_and_Dev_Ops\Dev_Ops\MYLAB" [(main.tf, variables.tf)]
+
+testing:
+========
+tomcat server:
+http://3.95.27.67:8080/latest/
+
+docker host server:
+http://3.85.241.232:8080/latest/
+
+1) Created all infrastructure using Terraform scripts (VPC,Public Subnet,Internet Gateway,Secutity Group,route table,route table association,EC2 Instance. (main.tf, variables.tf)
+
+EC2-Instance = Jenkins-Master-Server = installjenkins.sh
+EC2-Instance = Ansible Controller = installansible.sh
+EC2-Instance =  EC2 Instance and install Ansible managed Apache tomcat = installansiblemanagednode1.sh
+EC2-Instance =  EC2 Instance and install Docker host = installansiblemanagednode2.sh
+EC2-Instance =  EC2 Instance and install Sonatype Nexus = sonatypenexus.sh
+EC2-Instance =  EC2 Instance and install SonarQube = installsonarqube.sh
+
+2) GIT(GIT checkout) ---->Jenkins (Maven build) ----> Sonarqube (Sonarqube Analysis) ----->Nexus(push to nexus) ----> Ansible---->Tomcat-server (Deploy to Tomcat)
+
+3) GIT(GIT checkout) ---->Jenkins (Maven build) ----> Sonarqube (Sonarqube Analysis) ----->Nexus(push to nexus) ----> Ansible---->Docker-server (Deploy to Docker)
+
+4) Ansible will get the build package from Nexus and Deployed on to Tomcat Server (download_and_deploy_tomcat.yaml)
+
+5) Ansible will get the build package from Nexus , create the docker image and docker container using file (Dockerfile) and Deployed  on to Docker Server (docker_image_container_creation.yml)
+
+6) created two jobs for Dev (FirstCICDproject-declarative-dev ,Jenkinsfile_develop , docker_creation_dev.yaml, downloadanddeploy_dev.yaml) and UAT (FirstCICDproject-declarative-uat, Jenkinsfile_release, docker_creation_uat.yml,downloadanddeploy_uat.yaml) 
+
+7) For each envirnoment dev (/home/ansibleadmin/snapshot) and UAT ( /home/ansibleadmin/release)
+
+8) Ansible controller:
+ansibleadmin@ip-172-20-10-77 playbooks]$ pwd
+/opt/playbooks
+[ansibleadmin@ip-172-20-10-77 playbooks]$ ls
+docker_creation_dev.yaml  docker_creation_uat.yml  downloadanddeploy_dev.yaml  downloadanddeploy_uat.yaml  hosts  installtomcat.yaml  scond
+[ansibleadmin@ip-172-20-10-77 playbooks]$
+
+9) Docker host:
+
+[ansibleadmin@ip-172-20-10-112 release]$ pwd <---- for UAT
+/home/ansibleadmin/release
+[ansibleadmin@ip-172-20-10-112 release]$
+[ansibleadmin@ip-172-20-10-112 release]$
+[ansibleadmin@ip-172-20-10-112 release]$ ls
+Dockerfile  hosts  latest.war
+[ansibleadmin@ip-172-20-10-112 release]$
+
+[ansibleadmin@ip-172-20-10-112 ~]$ cd snapshot/ <--- for Dev
+[ansibleadmin@ip-172-20-10-112 snapshot]$ ls
+Dockerfile  latest.war
+[ansibleadmin@ip-172-20-10-112 snapshot]$ pwd
+/home/ansibleadmin/snapshot
+[ansibleadmin@ip-172-20-10-112 snapshot]$
+
+10) Tomcat host:
+
+
+
+
+
+
+
+
+
+
+
+
+1) user data file (user-data.txt) is copied from Terraform to EC2 instance (/var/lib/cloud/instance/)
+2) Logs for user data (cloud-init-output.log) script execution is present on EC2 (/var/log)
+
+'curl -u admin:achyuth123 -L "http://44.192.77.148:8081/service/rest/v1/search/assets/download?sort=version&repository=suresha-SNAPSHOT&maven.groupId=com.vinaysdevopslab&maven.artifactId=VinayDevOpsLab&maven.extension=war" -H "accept: application/json" --output /home/ansibleadmin/latest.war' 
+'curl -u admin:achyuth123 -L "http://44.192.77.148:8081/service/rest/v1/search/assets/download?sort=version&repository=suresha-SNAPSHOT&maven.groupId=com.mt&maven.artifactId=spring-boot-mongo&maven.extension=war" -H "accept: application/json" --output /home/ansibleadmin/scond/latest.war

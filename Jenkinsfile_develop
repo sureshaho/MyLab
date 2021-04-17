@@ -12,7 +12,7 @@ pipeline {
     stages{
         stage("GIT checkout"){
             steps{
-               git branch: 'main', url: 'https://github.com/sureshaho/MyLab.git'
+               git branch: 'QA', url: 'https://github.com/sureshaho/MyLab.git'
             }
         }
         stage("Maven build"){

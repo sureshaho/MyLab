@@ -60,7 +60,7 @@ pipeline {
         stage("Deploy to K8S using Kubectl installed on jenkin"){
            steps{
                 kubernetesDeploy (
-                configs: 'springBootMongo.yml',
+                configs: 'mywebapp.yaml',
                 kubeconfigId: 'KUBERNETES_CLUSTER_CONFIG-NEW'
                 )
           }

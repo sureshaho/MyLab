@@ -51,7 +51,7 @@
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
     <div class="container">
-        <h1>HELLO  GOOD DAY</h1>
+        <h1>HELLO GOOD DAY TO INDIA</h1>
         <p>This is Vinays and Suresha DevOps AWS Lab RELEASE</p>
         <p><a class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p>
         <p><a class="btn btn-primary btn-lg" role="button">Success!! more &raquo;</a></p>

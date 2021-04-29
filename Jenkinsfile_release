@@ -62,7 +62,8 @@ pipeline {
                  sshagent(['KOPS-Machine-Details']) {
                      sh "scp -o StrictHostKeyChecking=no mywebbapp.yaml ubuntu@3.236.218.158:/home/ubuntu/"
                      script {
-					     try{
+					     try{    
+					             sh "ssh ubuntu@3.236.218.158 kubectl delete -f mywebbapp.yaml"
 						     sh "ssh ubuntu@3.236.218.158 kubectl apply -f mywebbapp.yaml"
 							 
 						 }catch(error){

@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+    name: mywebappdev
+spec:
+ replicas: 1
+ selector:
+  app: mywebappdev
+ template:
+   metadata:
+     labels:
+         app: mywebappdev
+   spec:
+     containers:
+     - name: mywebappdev
+       image: sureshaho/webappdev
+       ports:
+       - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: mywebappdev
+spec:
+  type: ClusterIP
+  selector:
+    app: mywebappdev
+  ports:
+  - port: 80
+    targetPort: 8080

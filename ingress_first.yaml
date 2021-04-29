@@ -1,0 +1,33 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-resource-1
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: maven.suri-achar.xyz
+    http:
+      paths:
+      # Default Backend (Root /)
+      - backend:
+          serviceName: mavenewebapprc
+          servicePort: 80
+  - host: mywebapp.suri-achar.xyz
+    http:
+      paths:
+      - backend:
+          serviceName: mywebapp
+          servicePort: 80
+
+  - host: springboot.suri-achar.xyz
+    http:
+      paths:
+      - backend:
+          serviceName: springboot
+          servicePort: 8080
+  - host: mywebappdev.suri-achar.xyz
+    http:
+      paths:
+      - backend:
+          serviceName: mywebappdev
+          servicePort: 80

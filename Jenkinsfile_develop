@@ -63,11 +63,11 @@ pipeline {
                      sh "scp -o StrictHostKeyChecking=no mywebbapp.yaml ubuntu@3.236.218.158:/home/ubuntu/"
                      script {
 					     try{    
-					             sh "ssh ubuntu@3.236.218.158 kubectl delete -f myappweb_qa.yaml"
-						     sh "ssh ubuntu@3.236.218.158 kubectl apply -f myappweb_qa.yaml"
+					             sh "ssh ubuntu@3.236.218.158 kubectl delete -f mywebbappdev.yaml"
+						     sh "ssh ubuntu@3.236.218.158 kubectl apply -f mywebbappdev.yaml"
 							 
 						 }catch(error){
-						     sh "ssh ubuntu@3.236.218.158 kubectl apply -f myappweb_qa.yaml"
+						     sh "ssh ubuntu@3.236.218.158 kubectl apply -f mywebbappdev.yaml"
 							 
 						}
 				    }

@@ -60,14 +60,14 @@ pipeline {
         stage("Deploy to  K8S using SSHAgent"){
             steps{
                  sshagent(['KOPS-Machine-Details']) {
-                     sh "scp -o StrictHostKeyChecking=no mywebbapp.yaml ubuntu@3.236.218.158:/home/ubuntu/"
+                     sh "scp -o StrictHostKeyChecking=no mywebbapp.yaml ubuntu@18.232.153.223:/home/ubuntu/"
                      script {
 					     try{    
-					             sh "ssh ubuntu@3.236.218.158 kubectl delete -f mywebbapp.yaml"
-						     sh "ssh ubuntu@3.236.218.158 kubectl apply -f mywebbapp.yaml"
+					             sh "ssh ubuntu@18.232.153.223 kubectl delete -f mywebbapp.yaml"
+						     sh "ssh ubuntu@18.232.153.223 kubectl apply -f mywebbapp.yaml"
 							 
 						 }catch(error){
-						     sh "ssh ubuntu@3.236.218.158 kubectl apply -f mywebbapp.yaml"
+						     sh "ssh ubuntu@18.232.153.223 kubectl apply -f mywebbapp.yaml"
 							 
 						}
 				    }

@@ -1,5 +1,5 @@
 pipeline {
-    parameters{
+    parameters {
         string(name: 'branch_name', defaultValue: 'main', description: 'Please enter branch name')
     }
     

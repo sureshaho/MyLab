@@ -1,4 +1,3 @@
- 84 lines (75 sloc) 3.72 KB
 pipeline {
     parameters {
         string(name: 'branch_name', defaultValue: 'main', description: 'Please enter branch name')
